@@ -1,6 +1,6 @@
 import indi.hjhk.arcadedb.datatrans.*;
 
-public class test {
+public class SchemaTest {
     public static void main(String[] args){
         ArcadedbSchemaVertex snapShot=new ArcadedbSchemaVertex("SnapShot");
         snapShot.addProperty("id", PropertyType.MYSQL_TINYTEXT, Constraint.MYSQL_NOTNULL);

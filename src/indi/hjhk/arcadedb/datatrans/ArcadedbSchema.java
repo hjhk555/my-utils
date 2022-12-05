@@ -21,14 +21,6 @@ public class ArcadedbSchema {
         properties.put(name, new Property(propertyType, constraints));
     }
 
-    public void dropProperty(String name){
-        properties.remove(name);
-    }
-
-    public void clearProperties(){
-        properties.clear();
-    }
-
     private boolean checkValidIndex(Index index){
         for (String property: index.properties){
             if (this.properties.get(property)==null) return false;
