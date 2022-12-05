@@ -12,6 +12,10 @@ public class ArcadedbSchema {
         this.name=name;
         this.documentType=documentType;
     }
+    
+    public String getName(){
+        return name;
+    }
 
     public void addProperty(String name, PropertyType propertyType){
         addProperty(name, propertyType, Constraint.ARCADEDB_DEFAULT);
