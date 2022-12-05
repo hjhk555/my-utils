@@ -24,7 +24,7 @@ public class ArcadedbDocument {
         boolean first=true;
         for (Map.Entry<String, Object> entry: properties.entrySet()){
             sql.append(String.format((first ? "%s=%s" : ", %s=%s"),
-                    entry.getKey(), entry.getValue()));
+                    entry.getKey(), (entry.getValue()==null ? "null" : "'"+entry.getValue()+"'")));
             first=false;
         }
         return sql.toString();
