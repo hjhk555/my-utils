@@ -9,7 +9,7 @@ public class ArcadedbSchemaVertex extends ArcadedbSchema{
         super(name, DocumentType.ARCADEDB_VERTEX);
     }
 
-    ArcadedbVertex resolveFromRS(ResultSet rs){
+    public ArcadedbVertex resolveFromRS(ResultSet rs){
         ArcadedbVertex vertex=new ArcadedbVertex(name);
         for (Map.Entry<String, Property> entry: properties.entrySet()){
             String key= entry.getKey();
