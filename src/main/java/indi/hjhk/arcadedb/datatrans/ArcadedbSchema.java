@@ -12,7 +12,7 @@ public class ArcadedbSchema {
         this.name=name;
         this.documentType=documentType;
     }
-    
+
     public String getName(){
         return name;
     }
