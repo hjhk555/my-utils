@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 public class Logger {
     static SimpleDateFormat dirFormat = new SimpleDateFormat("yy_MM_dd HH_mm");
     static SimpleDateFormat timeStampFormat = new SimpleDateFormat("[yy/MM/dd HH:mm:ss:SSS] ");
-    static File logFile = new File("./hjhkLog/" + dirFormat.format(System.currentTimeMillis()) + ".txt");
+    static final File logFile = new File("./hjhkLog/" + dirFormat.format(System.currentTimeMillis()) + ".txt");
     static FileWriter logWriter;
     static boolean able = false;
 
@@ -29,11 +29,12 @@ public class Logger {
             able = false;
             return false;
         }
-        log("log start.");
+        logSilent("log start.");
         return true;
     }
 
-    public static void log(String s) {
+    public static void logSilent(String str, Object... args) {
+        String logContent = String.format(str, args);
         synchronized (logFile) {
             try {
                 int count=0;
@@ -43,11 +44,23 @@ public class Logger {
                         System.err.println("failed to init hjhkLog.");
                     }
                 }
-                logWriter.write(timeStampFormat.format(System.currentTimeMillis()) + s + "\n");
+                logWriter.write(timeStampFormat.format(System.currentTimeMillis()) + logContent + "\n");
                 logWriter.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void logOnStdout(String str, Object... args){
+        String logContent = String.format(str, args);
+        logSilent(logContent);
+        System.out.println(logContent);
+    }
+
+    public static void logOnStderr(String str, Object... args){
+        String logContent = String.format(str, args);
+        logSilent(logContent);
+        System.err.println(logContent);
     }
 }

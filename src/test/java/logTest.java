@@ -2,6 +2,6 @@ import indi.hjhk.log.Logger;
 
 public class logTest {
     public static void main(String[] args) {
-        Logger.log("test");
+        Logger.logSilent("test");
     }
 }
