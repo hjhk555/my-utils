@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 public class Logger {
-    static SimpleDateFormat fileNameFormat = new SimpleDateFormat("yy_MM_dd HH_mm");
+    static SimpleDateFormat fileNameFormat = new SimpleDateFormat("yy_MM_dd HH_mm_ss");
     static SimpleDateFormat timeStampFormat = new SimpleDateFormat("[yy/MM/dd HH:mm:ss:SSS] ");
     static final File logFile = new File("./hjhkLog/" + fileNameFormat.format(System.currentTimeMillis()) + ".txt");
     static FileWriter logWriter;
