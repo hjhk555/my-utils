@@ -6,7 +6,7 @@ public class ExceptionSerializer {
     }
 
     public static String serializeStackTrace(Exception e){
-        return serializeStackTrace(e, "\tat ");
+        return serializeStackTrace(e, "    at ");
     }
 
     public static String serializeStackTrace(Exception e, String prefix){
