@@ -40,11 +40,16 @@ public class CSVReader {
         });
     }
 
-    public boolean next() throws CSVFormatException, IOException {
+    public boolean next(){
         currentRecord.clear();
-        return consumeNextLine((string, index) -> {
-            currentRecord.add(index, string);
-        });
+        try {
+            return consumeNextLine((string, index) -> {
+                currentRecord.add(index, string);
+            });
+        } catch (CSVFormatException | IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public String getString(String columnName){

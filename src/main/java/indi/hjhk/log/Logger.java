@@ -1,5 +1,7 @@
 package indi.hjhk.log;
 
+import indi.hjhk.exception.ExceptionSerializer;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -50,7 +52,7 @@ public class Logger {
             pureLogger = new Logger(null);
         }
 
-        pureLogger.appendTag(TimestampContent.getInstance(), false);
+        pureLogger.appendTag("timestamp", TimestampContent.getInstance(), false);
         pureLoggerInstances.put(fileId, pureLogger);
         return pureLogger.clone();
     }
@@ -65,12 +67,22 @@ public class Logger {
         this.logWriter = writer;
     }
 
-    public void appendTag(LogTagContent tagContent){
-        appendTag(tagContent, true);
+    public boolean appendTag(String tagId, LogTagContent tagContent){
+        return appendTag(tagId, tagContent, true);
     }
 
-    public void appendTag(LogTagContent tagContent, boolean showOnScreen){
-        tagList.add(new LogTag(tagContent, showOnScreen));
+    public boolean appendTag(String tagId, LogTagContent tagContent, boolean showOnScreen){
+        if (getTagIndex(tagId) >=0 ) return false;
+        tagList.add(new LogTag(tagId, tagContent, showOnScreen));
+        return true;
+    }
+
+    public int getTagIndex(String tagId){
+        for (int index = 0; index < tagList.size(); index++){
+            if (tagList.get(index).tagId.equals(tagId))
+                return index;
+        }
+        return -1;
     }
 
     public void enableAutoFlush(){
@@ -127,6 +139,17 @@ public class Logger {
         String logContent = String.format(str, args);
         logRawContent(getTaggedContentForLog(logContent));
         System.err.println(getTaggedContentForScreen(logContent));
+    }
+
+    public void logException(Exception e){
+        logOnStderr(ExceptionSerializer.serializeAll(e));
+    }
+
+    public void removeTag(String tagId){
+        int index = getTagIndex(tagId);
+        if (index < 0)
+            return;
+        tagList.remove(index);
     }
 
     public void flush(){
