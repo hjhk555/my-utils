@@ -76,6 +76,18 @@ public class CSVReader {
         return Long.parseLong(currentRecord.get(index));
     }
 
+    public Double getDouble(String columnName){
+        if (csvHeader == null) {
+            throw new NullPointerException("header not read");
+        }
+
+        return Double.parseDouble(currentRecord.get(csvHeader.get(columnName)));
+    }
+
+    public Double getDouble(int index){
+        return Double.parseDouble(currentRecord.get(index));
+    }
+
     private boolean consumeNextLine(StringConsumer consumer) throws IOException, CSVFormatException {
         StringBuilder strBuilder = new StringBuilder();
         int nextCh = fileReader.read();
